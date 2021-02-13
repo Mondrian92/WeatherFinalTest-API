@@ -22,16 +22,13 @@
   "dependencies": {
     "@types/express-validator": "^3.0.0",
     "@types/uuid": "^8.3.0",
-    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
-    "node-ts-open-weather-map": "^1.2.1",
     "nodemon": "^2.0.7",
-    "openweather-apis": "^4.4.1",
-    "openweather-node": "0.0.4",
+    "openweathermap-ts": "^1.2.7",
     "redis": "^3.0.2",
     "uid-generator": "^2.0.0"
   },

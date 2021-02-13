@@ -1,0 +1,32 @@
+{
+  "name": "progetto-finale-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node ./build/main.js",
+    "dev": "nodemon --ignore resources/banks.json src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mondrian92/WeatherFinalTest-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mondrian92/WeatherFinalTest-API/issues"
+  },
+  "homepage": "https://github.com/Mondrian92/WeatherFinalTest-API#readme",
+  "dependencies": {
+    "@types/express-validator": "^3.0.0",
+    "@types/uuid": "^8.3.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.9.2",
+    "nodemon": "^2.0.7",
+    "uid-generator": "^2.0.0"
+  }
+}

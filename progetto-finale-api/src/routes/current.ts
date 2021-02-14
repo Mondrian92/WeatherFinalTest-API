@@ -1,7 +1,7 @@
 import express, {Request, Response, NextFunction} from "express";
 import OpenWeatherMap from 'openweathermap-ts';
-
-const weather = new OpenWeatherMap({apiKey: '340269648576eaaff42a70eb35325e3a'});
+import {weather} from '../main'
+//const weather = new OpenWeatherMap({apiKey: '340269648576eaaff42a70eb35325e3a'});
 const router = express.Router();
 
 router.get('/cities/:cityName', async ({ params: {cityName}} : Request, res: Response) => {

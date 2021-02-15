@@ -4,10 +4,9 @@ import { validationHandler } from "../validation";
 import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
 import { json, urlencoded } from "body-parser";
-import UIDGenerator from "uid-generator";
 import { isLogged } from '../isLogged'
 import {User} from '../user'
-
+import UIDGenerator from "uid-generator";
 
 const router = Router();
 const client: any = promisifyAll(createClient());

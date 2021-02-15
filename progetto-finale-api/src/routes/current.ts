@@ -12,7 +12,7 @@ router.get(
   "/cities/:cityName",
   isLogged,
   param("cityName").isString(),
-  header("unit").isString(),
+  header("unit").custom( ( value ) => value != 'metric' || value != 'imperial' || value != 'standard'),
   validationHandler,
   async ({ params: { cityName }, headers: { unit } }: Request, res: Response) => {
     try {
@@ -30,7 +30,7 @@ router.get(
   "/id/:cityId",
   isLogged,
   param("cityId").isNumeric(),
-  header("unit").isString(),
+  header("unit").custom( ( value ) => value != 'metric' || value != 'imperial' || value != 'standard'),
   validationHandler,
   async ({ params: { cityId }, headers: { unit } }: Request, res: Response) => {
     try {
@@ -49,7 +49,7 @@ router.get(
   isLogged,
   param("zipCode").isNumeric(),
   param("countryCode").isString().isLength({ min: 2, max: 2 }),
-  header("unit").isString(),
+  header("unit").custom( ( value ) => value != 'metric' || value != 'imperial' || value != 'standard'),
   validationHandler,
   async ({ params: { zipCode, countryCode }, headers: { unit } }: Request, res: Response) => {
     try {
@@ -68,7 +68,7 @@ router.get(
   isLogged,
   query("long").isNumeric(),
   query("lat").isNumeric(),
-  header("unit").isString(),
+  header("unit").custom( ( value ) => value != 'metric' || value != 'imperial' || value != 'standard'),
   validationHandler,
   async ({ query: { long, lat }, headers: { unit } }: Request, res: Response) => {
     try {

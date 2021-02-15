@@ -4,11 +4,12 @@ import { param, query, header } from "express-validator";
 import { validationHandler } from "../validation";
 import { CountryCode } from "openweathermap-ts/dist/types/CountryCode"
 import { Unit } from "openweathermap-ts/dist/types/Unit"
-
+import {isLogged} from '../isLogged'
 const router = Router();
 
 router.get(
   "/cities/:cityName",
+  isLogged,
   param("cityName").isString(),
   header("unit").isString(),
   validationHandler,
@@ -26,6 +27,7 @@ router.get(
 
 router.get(
   "/id/:cityId",
+  isLogged,
   param("cityId").isNumeric(),
   header("unit").isString(),
   validationHandler,
@@ -41,6 +43,7 @@ router.get(
 
 router.get(
   "/coutries/:countryCode/zipcodes/:zipCode",
+  isLogged,
   param("zipCode").isNumeric(),
   param("countryCode").isString().isLength( { min:2, max:2 } ),
   header("unit").isString(),
@@ -57,6 +60,7 @@ router.get(
 
 router.get(
   "/coordinates",
+  isLogged,
   query("long").isNumeric(),
   query("lat").isNumeric(),
   header("unit").isString(),

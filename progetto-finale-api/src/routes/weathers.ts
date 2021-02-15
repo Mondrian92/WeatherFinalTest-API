@@ -5,6 +5,8 @@ import { weather } from "../main";
 import { param } from "express-validator";
 import { validationHandler } from "../validation";
 import { Unit } from "openweathermap-ts/dist/types/Unit"
+import{ isLogged} from '../isLogged'
+
 const router = express();
 
 router.use("/current", current);
@@ -12,6 +14,7 @@ router.use("/forecast", forecast);
 
 
 router.put("/units/:unit",
+isLogged,
     param("unit").isString(),
     validationHandler,
     async ({params: {unit}}: Request, res: Response) => {

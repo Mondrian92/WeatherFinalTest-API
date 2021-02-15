@@ -1,20 +1,17 @@
 import { Request, Response, Router } from "express";
 import { param, query, header } from "express-validator";
 import { validationHandler } from "../validation";
-import { createClient, RedisClient } from "redis";
+import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
 import { json, urlencoded } from "body-parser";
 import UIDGenerator from "uid-generator";
 
 const router = Router();
-// const client = createClient();
 const client: any = promisifyAll(createClient());
 const uidgen = new UIDGenerator();
 
 router.use(json())
 router.use(urlencoded({extended: true}))
-
-// promisifyAll(RedisClient.prototype);
 
 router.post("/register", async ({body: { email, username, password }}: Request, res: Response) => {
     if(await client.setAsync(email, JSON.stringify({email, username, password}), "NX")) {

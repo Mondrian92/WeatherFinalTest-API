@@ -6,4 +6,4 @@ const validator = (req:Request, res:Response, next:NextFunction)=>{
     errors.array().length > 0 ? res.status(400).json({Error: "Bad request"}) : next()
 }
 
-export {validator as validationHandler}
+export { validator as validationHandler }

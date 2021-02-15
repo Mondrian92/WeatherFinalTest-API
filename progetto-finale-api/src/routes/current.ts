@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
+import { Request, Response, Router} from "express";
 import { weather } from "../main";
 import { param, query, header } from "express-validator";
 import { validationHandler } from "../validation";
 import { CountryCode } from "openweathermap-ts/dist/types/CountryCode"
 import { Unit } from "openweathermap-ts/dist/types/Unit"
-const router = express.Router();
+
+const router = Router();
 
 router.get(
   "/cities/:cityName",

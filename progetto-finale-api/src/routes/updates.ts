@@ -25,7 +25,7 @@ router.put("/username",
         if (
             await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
-        res.status(200).json({Message: "Update fatto"})
+        res.status(200).json({Message: "Update fatto", user: userInfo})
     } else {
         res.status(400).json({Message: "Bad request"})
     }

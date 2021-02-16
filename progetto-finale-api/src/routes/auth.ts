@@ -1,14 +1,32 @@
 import { Request, Response, Router } from "express";
 import { body, header } from "express-validator";
 import { validationHandler } from "../validation";
+import cors from "cors"
 import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
 import { json, urlencoded } from "body-parser";
-import { isLogged } from '../isLogged'
-import {User} from '../user'
+import { isLogged } from "../isLogged"
+import {User} from "../user"
 import UIDGenerator from "uid-generator";
-
 const router = Router();
+
+const options: cors.CorsOptions = {
+    allowedHeaders: [
+      'Origin',
+      "Access-Control-Allow-Origin",
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'X-Access-Token',
+    ],
+    credentials: true,
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    origin: 'http://localhost:4200',
+    preflightContinue: false,
+  };(options)
+
+router.use(cors(options));
+
 const client: any = promisifyAll(createClient());
 const uidgen = new UIDGenerator();
 

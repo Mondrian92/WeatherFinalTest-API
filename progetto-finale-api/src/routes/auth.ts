@@ -22,10 +22,11 @@ router.post(
     body('password').isString().trim(),
     validationHandler,
     async ({ body: {name, surname, username, email, password, country, city, unit } }: Request, res: Response) => {
-        if (
+        const user: User = {name, surname, username, email, password, country, city, unit}
+        if ( 
             await client.setAsync(
                 email,
-                JSON.stringify( new User(name, surname, username, email, password, country, city, unit)),
+                JSON.stringify( user ),
                 "NX"
             )
         ) {

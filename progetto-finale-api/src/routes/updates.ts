@@ -20,20 +20,10 @@ router.put("/username",
     async ({ body:{ username } }: Request, res: Response) => {
     if (await client.existsAsync(res.locals.emails)) {
         const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+        userInfo.username = username
+        const user: User = {...userInfo}
         if (
-            await client.setAsync(
-                res.locals.emails,
-                JSON.stringify( 
-                    new User(
-                        userInfo.name, 
-                        userInfo.surname, 
-                        username, 
-                        userInfo.email, 
-                        userInfo.password, 
-                        userInfo.country, 
-                        userInfo.city, 
-                        userInfo.unit)),
-            )
+            await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
         res.status(200).json({Message: "Update fatto"})
     } else {
@@ -48,20 +38,10 @@ router.put("/city",
     async ({ body: { city } }: Request, res: Response) => {
     if (await client.existsAsync(res.locals.emails)) {
         const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+        userInfo.city = city
+        const user: User = {...userInfo}
         if (
-            await client.setAsync(
-                res.locals.emails,
-                JSON.stringify( 
-                    new User(
-                        userInfo.name, 
-                        userInfo.surname, 
-                        userInfo.username, 
-                        userInfo.email, 
-                        userInfo.password, 
-                        userInfo.country, 
-                        city, 
-                        userInfo.unit)),
-            )
+            await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
         res.status(200).json({Message: "Update fatto"})
     } else {
@@ -76,20 +56,10 @@ router.put("/country",
     async ({ body: { country } }: Request, res: Response) => {
     if (await client.existsAsync(res.locals.emails)) {
         const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+        userInfo.country = country
+        const user: User = {...userInfo}
         if (
-            await client.setAsync(
-                res.locals.emails,
-                JSON.stringify( 
-                    new User(
-                        userInfo.name, 
-                        userInfo.surname, 
-                        userInfo.username, 
-                        userInfo.email, 
-                        userInfo.password, 
-                        country, 
-                        userInfo.city, 
-                        userInfo.unit)),
-            )
+            await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
         res.status(200).json({Message: "Update fatto"})
     } else {
@@ -104,20 +74,10 @@ router.put("/unit",
     async ({ body: { unit } }: Request, res: Response) => {
     if (await client.existsAsync(res.locals.emails)) {
         const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+        userInfo.unit = unit
+        const user: User = {...userInfo}
         if (
-            await client.setAsync(
-                res.locals.emails,
-                JSON.stringify( 
-                    new User(
-                        userInfo.name, 
-                        userInfo.surname, 
-                        userInfo.username, 
-                        userInfo.email, 
-                        userInfo.password, 
-                        userInfo.country, 
-                        userInfo.city, 
-                        unit)),
-            )
+            await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
         res.status(200).json({Message: "Update fatto"})
     } else {

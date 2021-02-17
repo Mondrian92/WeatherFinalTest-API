@@ -1,11 +1,21 @@
-<div class="wrapper">
-      <form class="form-signin">
-       <h2 class="form-signin-heading">Please login</h2>
-       <input type="email" class="form-control" name="email" required="" [(ngModel)]="email" />
-       <input type="password" class="form-control" name="password" required="" [(ngModel)]="password" />      
-       <label class="checkbox">
-       <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-       </label>
-       <button (click)='formLogin()' class="btn btn-lg btn-primary btn-block" type="submit">Login</button> 
-      </form>  
- </div>
+<div class="mt-5 container-fluid">
+      <div class="mt-5 pt-5 row justify-content-center">
+          <div class="col-4">
+                  <form class="row shadow-lg p-3 mb-5 bg-body rounded">
+                        <h2>Please login</h2>
+
+                        <mat-form-field class="example-full-width">
+                              <mat-label>Email</mat-label>
+                              <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Inserisci email">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                              <mat-label>Password</mat-label>
+                              <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Inserisci password">
+                        </mat-form-field>
+
+                        <input (click)="formLogin()" class="btn btn-lg btn-primary btn-block"  type="submit" value="Login">
+                  </form>
+            </div>
+      </div>
+</div>

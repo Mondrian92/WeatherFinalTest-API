@@ -9,24 +9,29 @@ import { isLogged } from "../isLogged"
 import {User} from "../user"
 import UIDGenerator from "uid-generator";
 const router = Router();
+// const options: cors.CorsOptions = {
+//     allowedHeaders: [
+//       'Origin',
+//       'X-Requested-With',
+//       'Content-Type',
+//       'Accept',
+//       'X-Access-Token',
+//       '*'
+//     ],
+//     credentials: true,
+//     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+//     origin: 'http://localhost:4200',
+//     preflightContinue: false,
+//   };
 
-const options: cors.CorsOptions = {
-    allowedHeaders: [
-      'Origin',
-      "Access-Control-Allow-Origin",
-      'X-Requested-With',
-      'Content-Type',
-      'Accept',
-      'X-Access-Token',
-    ],
-    credentials: true,
-    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: 'http://localhost:4200',
-    preflightContinue: false,
-  };(options)
+router.use(cors());
 
-router.use(cors(options));
-
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 const client: any = promisifyAll(createClient());
 const uidgen = new UIDGenerator();
 

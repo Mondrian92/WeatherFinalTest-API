@@ -15,11 +15,11 @@ public password: string;
 constructor(private apicaller:ApiCallerService) { }
  
 
-  ngOnInit(): void {
-  }
-//async
-  formLogin = async () =>{
-   return await this.apicaller.login(this.email, this.password)
-  }
+ngOnInit(): void {
+
+}
+
+formLogin = async () => await this.apicaller.login(this.email, this.password)
+  
 
 }

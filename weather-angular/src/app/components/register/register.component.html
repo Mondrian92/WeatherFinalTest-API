@@ -1,1 +1,58 @@
-<p>register works!</p>
+<div class="mt-5 container-fluid">
+    <div class="mt-5 pt-5 row justify-content-center">
+        <div class="col-6">
+            <form class="row shadow-lg p-3 mb-5 bg-body rounded">
+                  <h2>Please register</h2>
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput [(ngModel)]="name" name="name" placeholder="Inserisci nome">
+                  </mat-form-field>
+        
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>Surname</mat-label>
+                    <input type="text" matInput [(ngModel)]="surname" name="surname" placeholder="Inserisci cognome">
+                  </mat-form-field>
+        
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput [(ngModel)]="username" name="username" placeholder="Ex. Pippo12">
+                  </mat-form-field>
+        
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Inserisci email">
+                  </mat-form-field>
+                  
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Inserisci password">
+                  </mat-form-field>
+        
+                  <mat-form-field class="col-6 example-full-width">
+                    <mat-label>City</mat-label>
+                    <input type="text"matInput [(ngModel)]="city" name="city" placeholder="Inserisci città">
+                  </mat-form-field>
+        
+                    <mat-form-field appearance="fill">
+                    <mat-label>Choose a country</mat-label>
+                    <mat-select [(ngModel)]="country" name="country">
+                        <mat-option *ngFor="let country of countryCode | keyvalue" [value]="country.value">
+                        {{country.key}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill">
+                    <mat-label>Choose a unit</mat-label>
+                    <mat-select [(ngModel)]="unit" name="unit">
+                      <mat-option *ngFor="let unit of units | keyvalue" [value]="unit.key">
+                      {{unit.value}}
+                      </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+        
+                  <input (click)="formRegister()" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
+            </form>
+        </div>
+    </div>
+</div>

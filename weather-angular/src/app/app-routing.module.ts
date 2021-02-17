@@ -5,7 +5,14 @@ import {LandPageComponent } from './components/land-page/land-page.component'
 import {RegisterComponent} from './components/register/register.component'
 
 const routes: Routes = [
-  //{}
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: RegisterComponent
+  }
 ];
 
 @NgModule({

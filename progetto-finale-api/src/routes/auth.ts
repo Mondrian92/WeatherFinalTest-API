@@ -40,9 +40,13 @@ router.use(urlencoded({ extended: true }));
 
 router.post(
     "/register",
-    body('email').isEmail().trim(),
+    body('name').isString().trim(),
+    body('surname').isString().trim(),
     body('username').isString().trim(),
+    body('email').isEmail().trim(),
     body('password').isString().trim(),
+    body("country").isString().isLength({ min: 2, max: 2 }),
+    body("unit").custom( ( value ) => value != 'metric' || value != 'imperial' || value != 'standard'),
     validationHandler,
     async ({ body: {name, surname, username, email, password, country, city, unit } }: Request, res: Response) => {
         const user: User = {name, surname, username, email, password, country, city, unit}

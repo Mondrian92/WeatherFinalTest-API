@@ -20,6 +20,7 @@
         
                   <mat-form-field class="col-6 example-full-width">
                     <mat-label>Email</mat-label>
+                    <h1 *ngIf="alreadyExist">Email already in use</h1>
                     <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Inserisci email">
                   </mat-form-field>
                   

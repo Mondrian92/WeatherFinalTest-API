@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   public city:string
   public unit:string
 
+  public alreadyExist: boolean = false
+
   countryCode = { AFGHANISTAN : 'AF',
   ALANDISLANDS : 'AX',
   ALBANIA : 'AL',
@@ -273,22 +275,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   formRegister = async () => {
-    console.log(this.name, 
-      this.surname, 
-      this.username, 
-      this.email, 
-      this.password, 
-      this.country, 
-      this.city,
-      this.unit)
-
-    await this.apicaller.register(this.name, 
-    this.surname, 
-    this.username, 
-    this.email, 
-    this.password, 
-    this.country, 
-    this.city,
-    this.unit)
+    try{
+      await this.apicaller.register(this.name, 
+        this.surname, 
+        this.username, 
+        this.email, 
+        this.password, 
+        this.country, 
+        this.city,
+        this.unit)
+    }catch(error){
+      alert(error.error.Error)      
     }
+  }
 }

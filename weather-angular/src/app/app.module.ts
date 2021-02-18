@@ -17,6 +17,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatIconModule } from '@angular/material/icon'; 
 import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs'; 
 import { HttpClientModule } from '@angular/common/http';
 import { ApiCallerService } from './services/api-caller.service';
 
@@ -39,6 +40,7 @@ import { ApiCallerService } from './services/api-caller.service';
     MatIconModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTabsModule,
     MatInputModule,
     HttpClientModule
   ],

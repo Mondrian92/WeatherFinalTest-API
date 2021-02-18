@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
+import { LoginRes } from '../../interfaces/login-res'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -284,6 +285,11 @@ export class RegisterComponent implements OnInit {
         this.country, 
         this.city,
         this.unit)
+
+      await this.apicaller.login(this.email, this.password);
+      
+      console.log(JSON.parse(sessionStorage.getItem("user")));
+      
     }catch(error){
       alert(error.error.Error)      
     }

@@ -19,7 +19,13 @@ ngOnInit(): void {
 
 }
 
-formLogin = async () => await this.apicaller.login(this.email, this.password)
-  
-
+formLogin = async () => {
+  try{
+      await this.apicaller.login(this.email, this.password)
+  }catch(error){
+      alert(error.error.Error)
+      console.log(error);
+            
+  }
+  }
 }

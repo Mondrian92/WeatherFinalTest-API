@@ -15,11 +15,11 @@ export class ApiCallerService {
   constructor(private client:HttpClient) {}
   private uri = "http://localhost:3001/auth/" 
   
-  //const uri = "http://localhost:3001/auth/login";
+  const uri = "http://localhost:3001/auth/login";
 
-  //const uriCurrent = "http://localhost:3001/weathers/current";
+  const uriCurrent = "http://localhost:3001/weathers/current";
   
-  //const uriForecast = "http://localhost:3001/weathers/forecast";
+  const uriForecast = "http://localhost:3001/weathers/forecast";
 
 
   
@@ -37,22 +37,22 @@ export class ApiCallerService {
   
     // CURRRENT
 
-    //const header= new HttpHeaders().set("unit",unit);
-    //return await this.client.get(this.uriCurrent+"/cities/:cityName",{cityName, header}).toPromise();
-    //}
+    const header= new HttpHeaders().set("unit",unit);
+    return await this.client.get(this.uriCurrent+"/cities/:cityName",{cityName, header}).toPromise();
+    }
   
     //FORECAST
     
-    //forecastCityName = async (cityName: string, unit: string) => {
-    //const header= new HttpHeaders().set("unit",unit);
-    //return await this.client.get(this.uriForecast+"/cities/:cityName",{cityName, header}).toPromise();
-    //}
+    forecastCityName = async (cityName: string, unit: string) => {
+    const header= new HttpHeaders().set("unit",unit);
+    return await this.client.get(this.uriForecast+"/cities/:cityName",{cityName, header}).toPromise();
+    }
   
   
-    //logout = async {
-    // const headers = new HttpHeaders().set();
-    // return const response = await this.client.get(this.uri +"logout",{headers}).toPromise();
-    //}
+    logout = async () {
+     const headers = new HttpHeaders().set();
+     return const response = await this.client.get(this.uri +"logout",{headers}).toPromise();
+    }
 
 
   

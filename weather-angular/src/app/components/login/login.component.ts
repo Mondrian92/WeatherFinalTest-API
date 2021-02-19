@@ -21,12 +21,10 @@ ngOnInit(): void {
 
 formLogin = async () => {
   try{
-      const res = await this.apicaller.login(this.email, this.password)
-      sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
+    const res = await this.apicaller.login(this.email, this.password)
+    sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
   }catch(error){
-      alert(error.error.Error)
-      console.log(error);
-            
-  }
-  }
+    alert(error.error.Error)
+    console.log(error);
+  }}
 }

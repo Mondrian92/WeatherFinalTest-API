@@ -7,7 +7,7 @@ export interface AuthRes {
         email: string,
         password: string,
         unit: string
-    }
+    },
     token: string,
     error: string,
     isLogged: boolean

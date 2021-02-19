@@ -129,7 +129,7 @@ router.delete(
     }
 );
 
-router.get('/checkLogin', isLogged, async ( _ : Request, res: Response) => {
+router.get('/checkLogin',isLogged, async ( _ : Request, res: Response) => {
     res.status(200).json({
         message: "Login eseguito",
         user:{

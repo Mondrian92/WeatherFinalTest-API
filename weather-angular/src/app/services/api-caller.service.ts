@@ -40,15 +40,15 @@ export class ApiCallerService {
       city, 
       unit }).toPromise() as Promise<AuthRes>;
 
-  isLogged = (): Promise<AuthRes> => {
-    const {token} = JSON.parse(sessionStorage.getItem("user")) 
+  isLogged = async (): Promise<AuthRes> => {
+    const {token} = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("token", token);
-    return this.client.get(this.uriAuth + "checkLogin/", { headers }).toPromise() as Promise<AuthRes>
+    return await this.client.get(this.uriAuth + "checkLogin", { headers }).toPromise() as Promise<AuthRes>
   }
 
   logout = async (token: string) => {
     const headers = new HttpHeaders().set("token", token);
-    return await this.client.get(this.uriAuth + "logout", { headers }).toPromise();
+    return await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
   }
 
   //CURRENT  

@@ -14,14 +14,13 @@ export class NavbarComponent implements OnInit {
   }
 
   isLogged = async (): Promise<boolean> => {
-    await this.callService.isLogged() 
     return await this.callService.isLogged().then(res => res.isLogged === true ? true : false)
 }
   
   logout = async () => {
     try{
-      const user= JSON.parse(sessionStorage.getItem("user"));
-      await this.callService.logout(user.token);
+      const {token}= JSON.parse(sessionStorage.getItem("user"));
+      await this.callService.logout(token);
       sessionStorage.removeItem("user");
     }catch(error){
       console.log(error.error.Error)

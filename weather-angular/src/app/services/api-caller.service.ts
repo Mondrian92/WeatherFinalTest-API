@@ -41,15 +41,15 @@ export class ApiCallerService {
       unit }).toPromise() as Promise<AuthRes>;
 
   isLogged = (): Promise<AuthRes> => {
-    return this.client.get(this.uriAuth + "checkLogin/").toPromise() as Promise<AuthRes>
+    const {token} = JSON.parse(sessionStorage.getItem("user")) 
+    const headers = new HttpHeaders().set("token", token);
+    return this.client.get(this.uriAuth + "checkLogin/", { headers }).toPromise() as Promise<AuthRes>
   }
 
   logout = async (token: string) => {
     const headers = new HttpHeaders().set("token", token);
     return await this.client.get(this.uriAuth + "logout", { headers }).toPromise();
   }
-
-
 
   //CURRENT  
   currentCityName = async (cityName: string, unit: string) => {

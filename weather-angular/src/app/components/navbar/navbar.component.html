@@ -16,7 +16,7 @@
           <a class="nav-link" href="#">Pricing</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto">
+      <ul *ngIf="!isLogged()" class="navbar-nav ms-auto">
         <li class="nav-item btn btn-primary btn-sm">
             <a class="nav-link text-light" routerLink='/login'>Login</a>
         </li>
@@ -24,11 +24,11 @@
           <a class="nav-link text-light" routerLink='/signup'>Sign Up</a>
         </li>
       </ul>
-      <!-- <ul *ngIf="isLogged()" class="navbar-nav ms-auto">
+      <ul *ngIf="isLogged()" class="navbar-nav ms-auto">
         <li class="nav-item btn btn-primary btn-sm">
           <a (click)="logout()" class="nav-link text-light">Logout</a>
         </li>
-      </ul> -->
+      </ul>
     </div>
   </div>
 </nav>

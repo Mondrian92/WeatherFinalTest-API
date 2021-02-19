@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
-import { LoginRes } from '../../interfaces/login-res'
+import { AuthRes } from '../../interfaces/auth-res'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
   
   logout = async () => {
     try{
-      await this.callService.logout();
+      const user= JSON.parse(sessionStorage.getItem("user"));
+      await this.callService.logout(user.token);
       sessionStorage.removeItem("user");
     }catch(error){
       console.log(error.error.Error)

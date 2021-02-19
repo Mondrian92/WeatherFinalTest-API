@@ -21,7 +21,8 @@ ngOnInit(): void {
 
 formLogin = async () => {
   try{
-      await this.apicaller.login(this.email, this.password)
+      const res = await this.apicaller.login(this.email, this.password)
+      sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
   }catch(error){
       alert(error.error.Error)
       console.log(error);

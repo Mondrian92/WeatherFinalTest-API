@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
-import { LoginRes } from '../../interfaces/login-res'
+import { AuthRes } from '../../interfaces/auth-res'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

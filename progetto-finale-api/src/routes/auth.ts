@@ -1,13 +1,14 @@
 import { Request, Response, Router } from "express";
 import { body, header } from "express-validator";
 import { validationHandler } from "../validation";
-import cors from "cors"
 import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
 import { json, urlencoded } from "body-parser";
 import { isLogged } from "../isLogged"
 import {User} from "../user"
+import cors from "cors"
 import UIDGenerator from "uid-generator";
+
 const router = Router();
 // const options: cors.CorsOptions = {
 //     allowedHeaders: [
@@ -57,7 +58,17 @@ router.post(
                 "NX"
             )
         ) {
-            res.status(201).json(JSON.parse(await client.getAsync(email)));
+            res.status(201).json(
+                {
+                    message: "Utente registrato",
+                    user:{
+                        ...JSON.parse(await client.getAsync(email))
+                    },
+                    token: "",
+                    error: "",
+                    isLogged: null 
+                }
+            );
         } else {
             res.status(400).json({ Error: "Mail already exist" });
         }
@@ -76,9 +87,18 @@ router.get(
                 var token = uidgen.generateSync();
                 await client.setAsync(token, email, "EX", 120);
                 res.status(200).json({
-                    message: "Utente loggato",
-                    username: userInfo.username,
+                    message: "Login eseguito",
+                    user:{
+                        name: "",
+                        surname: "",
+                        username: "",
+                        email: "",
+                        password: "",
+                        unit: ""
+                    },
                     token,
+                    error: "",
+                    isLogged: true 
                 });
             }
         }
@@ -92,8 +112,38 @@ router.delete(
     validationHandler,
     async ({ headers: { token } }: Request, res: Response) => {
         client.del(token);
-        res.status(200).json({ message: "logout eseguito" });
+        res.status(200).json({
+        message: "Logout eseguito",
+        user:{
+            name: "",
+            surname: "",
+            username: "",
+            email: "",
+            password: "",
+            unit: ""
+        },
+        token: "",
+        error: "",
+        isLogged: false 
+    });
     }
 );
+
+router.get('/checkLogin', isLogged, async ( _ : Request, res: Response) => {
+    res.status(200).json({
+        message: "Login eseguito",
+        user:{
+            name: "",
+            surname: "",
+            username: "",
+            email: "",
+            password: "",
+            unit: ""
+        },
+        token: "",
+        error: "",
+        isLogged: true 
+    })
+})
 
 export { router as auth };

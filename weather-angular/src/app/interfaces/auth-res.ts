@@ -1,4 +1,4 @@
-export interface LoginRes {    
+export interface AuthRes {    
     message: string,
     user:{
         name: string,

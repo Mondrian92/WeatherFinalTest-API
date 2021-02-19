@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { AuthRes } from '../interfaces/auth-res';
 
 
 @Injectable({
@@ -8,34 +9,44 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 
 export class ApiCallerService {
 
-  constructor(private client: HttpClient) { }
-  private uri = "http://localhost:3001/auth/"
-
-  private uriLogin = "http://localhost:3001/auth/login";
-
+  private uriAuth = "http://localhost:3001/auth/"
   private uriCurrent = "http://localhost:3001/weathers/current";
-
   private uriForecast = "http://localhost:3001/weathers/forecast";
-
   private uriUpdates = "http://localhost:3001/updates";
+  
+  constructor(private client: HttpClient) { }
 
-
-
-  login = async (email: string, password: string) => {
+  login = async (email: string, password: string): Promise<AuthRes> => {
     const headers = new HttpHeaders().set("email", email).set("password", password);
-    const response = await this.client.get(this.uriLogin + "login", { headers }).toPromise();
+    return await this.client.get(this.uriAuth + "login", { headers }).toPromise() as Promise<AuthRes>;
   }
 
-  register = async (name: string, surname: string, username: string, email: string, password: string, country: string, city: string, unit: string) =>
-    await this.client.post(this.uri + "register", { name, surname, username, email, password, country, city, unit }).toPromise();
+  register = async (
+    name: string, 
+    surname: string, 
+    username: string, 
+    email: string, 
+    password: string, 
+    country: string, 
+    city: string, 
+    unit: string
+    ): Promise<AuthRes> => await this.client.post(this.uriAuth + "register", { 
+      name, 
+      surname, 
+      username, 
+      email, 
+      password, 
+      country, 
+      city, 
+      unit }).toPromise() as Promise<AuthRes>;
 
-  isLogged = () => {
-    return this.client.get("http://localhost:3001/checkLogin/").toPromise()
+  isLogged = (): Promise<AuthRes> => {
+    return this.client.get(this.uriAuth + "checkLogin/").toPromise() as Promise<AuthRes>
   }
 
   logout = async (token: string) => {
     const headers = new HttpHeaders().set("token", token);
-    return await this.client.get(this.uri + "logout", { headers }).toPromise();
+    return await this.client.get(this.uriAuth + "logout", { headers }).toPromise();
   }
 
 
@@ -61,12 +72,10 @@ export class ApiCallerService {
     return await this.client.get(this.uriCurrent + "/coutries/:countryCode/zipcodes/:zipCode", { headers, params }).toPromise();
   }
 
-
   currentCoordinates = async (long: string, lat: string, unit: string) => {
     const headers = new HttpHeaders().set("unit", unit);
     return await this.client.get(this.uriCurrent + `/coordinates?long=${long}&lat=${lat}`, { headers }).toPromise();
   }
-
 
   //FORECAST
   forecastCityName = async (cityName: string, unit: string) => {
@@ -74,7 +83,6 @@ export class ApiCallerService {
     const params = new HttpParams().set("city", cityName);
     return await this.client.get(this.uriForecast + "/cities/:cityName", { headers, params }).toPromise();
   }
-
 
   forecastCityId = async (cityId: string, unit: string) => {
     const headers = new HttpHeaders().set("unit", unit);

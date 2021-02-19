@@ -8,17 +8,7 @@ const isLogged = async ({ headers: { token } }: Request, res: Response, next: Ne
     res.locals.emails = email;
     if(email) next()
     else res.status(401).json({
-        message: "Utente non autenticato",
-        user:{
-            name: "",
-            surname: "",
-            username: "",
-            email: "",
-            password: "",
-            unit: ""
-        },
-        token: "",
-        error: "",
+        message: "Utente non autorizzato",
         isLogged: false 
     })
 }

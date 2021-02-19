@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
-import { AuthRes } from '../../interfaces/auth-res'
+import { DataShareService } from 'src/app/services/data-share.service';
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -271,7 +272,7 @@ export class RegisterComponent implements OnInit {
   standard: 'Kelvin'
   }
 
-  constructor(private apicaller:ApiCallerService) { }
+  constructor(private apicaller:ApiCallerService, private router:Router, private dataShareService: DataShareService) { }
 
   ngOnInit(): void {
   }
@@ -285,11 +286,10 @@ export class RegisterComponent implements OnInit {
         this.country, 
         this.city,
         this.unit)
-
-      await this.apicaller.login(this.email, this.password);
-      
-      console.log(JSON.parse(sessionStorage.getItem("user")));
-      
+      const res = await this.apicaller.login(this.email, this.password)
+      sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
+      this.dataShareService.isUserLoggedIn.next(true); ;
+      this.router.navigate(['/'])     
     }catch(error){
       alert(error.error.Error)      
     }

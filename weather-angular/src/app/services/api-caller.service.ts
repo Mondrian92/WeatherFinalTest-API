@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { AuthRes } from '../interfaces/auth-res';
+import { DataShareService } from 'src/app/services/data-share.service';
 
 
 @Injectable({
@@ -14,12 +15,9 @@ export class ApiCallerService {
   private uriForecast = "http://localhost:3001/weathers/forecast";
   private uriUpdates = "http://localhost:3001/updates";
   
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient, private dataShareService: DataShareService) { }
 
-  login = async (email: string, password: string): Promise<AuthRes> => {
-    const headers = new HttpHeaders().set("email", email).set("password", password);
-    return await this.client.get(this.uriAuth + "login", { headers }).toPromise() as Promise<AuthRes>;
-  }
+
 
   register = async (
     name: string, 
@@ -41,14 +39,22 @@ export class ApiCallerService {
       unit }).toPromise() as Promise<AuthRes>;
 
   isLogged = async (): Promise<AuthRes> => {
-    const {token} = JSON.parse(sessionStorage.getItem("user"))
+    const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("token", token);
+    //this.dataShareService.isUserLoggedIn.next(true);
     return await this.client.get(this.uriAuth + "checkLogin", { headers }).toPromise() as Promise<AuthRes>
   }
+  
+  login = async (email: string, password: string): Promise<AuthRes> => {
+    const headers = new HttpHeaders().set("email", email).set("password", password);
+    return await this.client.get(this.uriAuth + "login", { headers }).toPromise() as Promise<AuthRes>;
+    
+  }
 
-  logout = async (token: string) => {
+  logout = async () => {
+    const { token }= JSON.parse(sessionStorage.getItem("user"));
     const headers = new HttpHeaders().set("token", token);
-    return await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
+    await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
   }
 
   //CURRENT  

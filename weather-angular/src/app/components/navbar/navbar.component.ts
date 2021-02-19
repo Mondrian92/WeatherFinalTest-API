@@ -1,32 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
-import { AuthRes } from '../../interfaces/auth-res'
+import { Router } from '@angular/router'
+import { DataShareService } from 'src/app/services/data-share.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor(private callService: ApiCallerService) { }
-
   logged: boolean
-
-  ngOnInit(): void {
-    this.isLogged()
+  constructor(private callService: ApiCallerService, private router:Router, private dataShareService:DataShareService ) { 
+    this.dataShareService.isUserLoggedIn.subscribe( value => {
+      this.logged = value;    
+  });
   }
 
-  isLogged = async (): Promise<void> => {
-    const{ isLogged } = await this.callService.isLogged()
-    this.logged = isLogged
+  ngOnInit(): void {
+
   }
 
   logout = async () => {
     try{
-      const {token}= JSON.parse(sessionStorage.getItem("user"));
-      await this.callService.logout(token);
+      await this.callService.logout();
       sessionStorage.removeItem("user");
+      this.logged=false
+      //this.dataShareService.isUserLoggedIn.next(false); 
+      this.router.navigate(['/'])
     }catch(error){
       console.log(error)
     }

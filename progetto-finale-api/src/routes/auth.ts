@@ -10,28 +10,14 @@ import cors from "cors"
 import UIDGenerator from "uid-generator";
 
 const router = Router();
-// const options: cors.CorsOptions = {
-//     allowedHeaders: [
-//       'Origin',
-//       'X-Requested-With',
-//       'Content-Type',
-//       'Accept',
-//       'X-Access-Token',
-//       '*'
-//     ],
-//     credentials: true,
-//     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-//     origin: 'http://localhost:4200',
-//     preflightContinue: false,
-//   };
 
 router.use(cors());
 
-router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+router.use(function(_, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
   
 const client: any = promisifyAll(createClient());
 const uidgen = new UIDGenerator();
@@ -51,26 +37,10 @@ router.post(
     validationHandler,
     async ({ body: {name, surname, username, email, password, country, city, unit } }: Request, res: Response) => {
         const user: User = {name, surname, username, email, password, country, city, unit}
-        if ( 
-            await client.setAsync(
-                email,
-                JSON.stringify( user ),
-                "NX"
-            )
-        ) {
-            res.status(201).json(
-                {
-                    message: "Utente registrato",
-                    user:{
-                        ...JSON.parse(await client.getAsync(email))
-                    },
-                    token: "",
-                    error: "",
-                    isLogged: null 
-                }
-            );
+        if (await client.setAsync(email, JSON.stringify(user), "NX")) {
+          res.status(201).json({ message: "Utente registrato" });
         } else {
-            res.status(400).json({ Error: "Mail already exist" });
+          res.status(400).json({ error: "Mail already exist" });
         }
     }
 );
@@ -88,16 +58,7 @@ router.get(
                 await client.setAsync(token, email, "EX", 120);
                 res.status(200).json({
                     message: "Login eseguito",
-                    user:{
-                        name: "",
-                        surname: "",
-                        username: "",
-                        email: "",
-                        password: "",
-                        unit: ""
-                    },
                     token,
-                    error: "",
                     isLogged: true 
                 });
             }
@@ -114,16 +75,6 @@ router.delete(
         client.del(token);
         res.status(200).json({
         message: "Logout eseguito",
-        user:{
-            name: "",
-            surname: "",
-            username: "",
-            email: "",
-            password: "",
-            unit: ""
-        },
-        token: "",
-        error: "",
         isLogged: false 
     });
     }
@@ -132,16 +83,6 @@ router.delete(
 router.get('/checkLogin',isLogged, async ( _ : Request, res: Response) => {
     res.status(200).json({
         message: "Login eseguito",
-        user:{
-            name: "",
-            surname: "",
-            username: "",
-            email: "",
-            password: "",
-            unit: ""
-        },
-        token: "",
-        error: "",
         isLogged: true 
     })
 })

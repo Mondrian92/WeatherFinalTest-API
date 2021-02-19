@@ -9,6 +9,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandPageComponent } from './components/land-page/land-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiCallerService } from './services/api-caller.service';
+import { DataShareService } from './services/data-share.service';
+
 //Material
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { MatToolbarModule }from '@angular/material/toolbar'; 
@@ -18,8 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon'; 
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs'; 
-import { HttpClientModule } from '@angular/common/http';
-import { ApiCallerService } from './services/api-caller.service';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { ApiCallerService } from './services/api-caller.service';
     MatInputModule,
     HttpClientModule
   ],
-  providers: [ApiCallerService],
+  providers: [
+    ApiCallerService,
+    DataShareService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

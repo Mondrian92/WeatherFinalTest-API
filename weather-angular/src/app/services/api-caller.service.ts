@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { AuthRes } from '../interfaces/auth-res';
 import { DataShareService } from 'src/app/services/data-share.service';
+import { Forecast, ForecastRes } from '../interfaces/forecast';
 
 
 @Injectable({
@@ -112,11 +113,11 @@ export class ApiCallerService {
     return await this.client.get(this.uriForecast + `/coordinates?long=${long}&lat=${lat}`, { headers }).toPromise();
   }
 
-  foreCoordAll = async (long: any, lat: any, unit: string) => {
+  foreCoordAll = async (long: any, lat: any, unit: string): Promise<ForecastRes> => {
     console.log("longin: ", long, ",latin: ", lat);
     
     const headers = new HttpHeaders().set("unit", unit);
-    return await this.client.get(this.uriForecast + `/coordinates/all?long=${long}&lat=${lat}`, { headers }).toPromise();
+    return await this.client.get(this.uriForecast + `/coordinates/all?long=${long}&lat=${lat}`, { headers }).toPromise() as Promise<ForecastRes>;
   }
 
 

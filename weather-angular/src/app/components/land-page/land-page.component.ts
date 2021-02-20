@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ForecastRes, mappedForecast } from 'src/app/interfaces/forecast';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
 import { DataShareService } from 'src/app/services/data-share.service';
 @Component({
@@ -10,35 +11,43 @@ export class LandPageComponent implements OnInit {
 
   longitude: number
   latitude: number
-  forecast
+  forecast: ForecastRes | undefined 
   displayedColumns: string[] = ["date","temperature","wind","condition"]
-  constructor(private callService: ApiCallerService, private dataShareService: DataShareService) { 
-  //   this.dataShareService.forecast.subscribe( value => {
-  //     this.forecast = value;    
-  // });
-  }
+  constructor(private callService: ApiCallerService, private dataShareService: DataShareService) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getLocation()   
-    console.log(this.forecast);
-    
   }
 
 
-  getLocation(): void{
+  getLocation(): void {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
           this.longitude = position.coords.longitude;
           this.latitude = position.coords.latitude;
 
-          this.forecast = this.callService.foreCoordAll(this.longitude, this.latitude, "metric")
-          //this.dataShareService.forecast
+          this.forecast = await this.callService.foreCoordAll(this.longitude, this.latitude, "metric")
+          
           console.log(this.forecast);
         });
         
     } else {
        console.log("No support for geolocation")
     }
+  }
+
+  get mappedForecast(): mappedForecast {
+    return this.forecast?.forecast.reduce((acc,value) => {
+      const date = value.time.split(" ", 1)[0]
+      return {
+        ...acc,
+        [date]: [...(acc[date] ? acc[date] : []), value]
+      }
+    }, {} )
+  }
+
+  get grouppedForecast(): string[] { 
+    return Object.keys(this.mappedForecast)
   }
 
 }

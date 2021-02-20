@@ -14,7 +14,7 @@ import { ApiCallerService } from './services/api-caller.service';
 import { DataShareService } from './services/data-share.service';
 
 //Material
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatToolbarModule }from '@angular/material/toolbar'; 
 import { MatInputModule } from '@angular/material/input'; 
 import { MatSliderModule } from '@angular/material/slider';

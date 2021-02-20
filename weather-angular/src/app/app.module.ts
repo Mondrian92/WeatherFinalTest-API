@@ -21,7 +21,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatIconModule } from '@angular/material/icon'; 
 import {MatSelectModule} from '@angular/material/select';
-import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatTabsModule} from '@angular/material/tabs';
+import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component'; 
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    LandPageComponent
+    LandPageComponent,
+    HiddenNavComponent
   ],
   imports: [
     BrowserModule,

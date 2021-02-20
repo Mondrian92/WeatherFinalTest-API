@@ -11,6 +11,7 @@ import { DataShareService } from 'src/app/services/data-share.service';
 export class ApiCallerService {
 
   private uriAuth = "http://localhost:3001/auth/"
+  private uriWeathers = "http://localhost:3001/weathers/";
   private uriCurrent = "http://localhost:3001/weathers/current";
   private uriForecast = "http://localhost:3001/weathers/forecast";
   private uriUpdates = "http://localhost:3001/updates";
@@ -56,6 +57,8 @@ export class ApiCallerService {
     const headers = new HttpHeaders().set("token", token);
     await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
   }
+
+  getCountriesList = async (): Promise<JSON> => await this.client.get(this.uriWeathers + "countries/list").toPromise() as Promise<JSON>
 
   //CURRENT  
   currentCityName = async (cityName: string, unit: string) => {
@@ -104,10 +107,16 @@ export class ApiCallerService {
     return await this.client.get(this.uriForecast + "/coutries/:countryCode/zipcodes/:zipCode", { headers, params }).toPromise();
   }
 
-
   forecastCoordinates = async (long: string, lat: string, unit: string) => {
     const headers = new HttpHeaders().set("unit", unit);
-    return await this.client.get(this.uriCurrent + `/coordinates?long=${long}&lat=${lat}`, { headers }).toPromise();
+    return await this.client.get(this.uriForecast + `/coordinates?long=${long}&lat=${lat}`, { headers }).toPromise();
+  }
+
+  foreCoordAll = async (long: any, lat: any, unit: string) => {
+    console.log("longin: ", long, ",latin: ", lat);
+    
+    const headers = new HttpHeaders().set("unit", unit);
+    return await this.client.get(this.uriForecast + `/coordinates/all?long=${long}&lat=${lat}`, { headers }).toPromise();
   }
 
 

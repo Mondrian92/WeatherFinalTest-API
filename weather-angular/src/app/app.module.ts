@@ -16,12 +16,14 @@ import { DataShareService } from './services/data-share.service';
 //Material
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { MatToolbarModule }from '@angular/material/toolbar'; 
-import {MatInputModule} from '@angular/material/input'; 
+import { MatInputModule } from '@angular/material/input'; 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatIconModule } from '@angular/material/icon'; 
-import {MatSelectModule} from '@angular/material/select';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatSelectModule} from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table'; 
+import { MatCardModule } from '@angular/material/card'; 
 import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component'; 
 
 
@@ -46,7 +48,9 @@ import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatTableModule,
     MatInputModule,
+    MatCardModule,
     HttpClientModule
   ],
   providers: [

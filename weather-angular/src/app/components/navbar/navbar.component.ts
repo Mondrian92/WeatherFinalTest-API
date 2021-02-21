@@ -9,25 +9,24 @@ import { DataShareService } from 'src/app/services/data-share.service';
 })
 export class NavbarComponent implements OnInit {
   logged: boolean
-  constructor(private callService: ApiCallerService, private router:Router, private dataShareService:DataShareService ) { 
-    this.dataShareService.isUserLoggedIn.subscribe( value => {
-      this.logged = value;    
-  });
-  }
+  constructor(private callService: ApiCallerService, private router: Router, private dataShareService: DataShareService) {}
 
   ngOnInit(): void {
-
+   
+    this.dataShareService.isUserLoggedIn.subscribe(value => {
+      this.logged = value;
+    });
+    this.callService.isLogged()
   }
 
   logout = async () => {
-    try{
+    try {
       await this.callService.logout();
       sessionStorage.removeItem("user");
-      this.logged=false
-      //this.dataShareService.isUserLoggedIn.next(false); 
+      this.logged = false
       this.router.navigate(['/'])
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
-  } 
+  }
 }

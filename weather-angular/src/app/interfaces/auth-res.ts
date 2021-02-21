@@ -1,14 +1,9 @@
 export interface AuthRes {    
     message?: string,
-    // user?:{
-    //     name?: string,
-    //     surname?: string,
-    //     username?: string,
-    //     email?: string,
-    //     password?: string,
-    //     unit?: string
-    // },
     token?: string,
+    city?:string,
+    country?:string,
+    unit?:string,
     error?: string,
     isLogged?: boolean
 }

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './components/login/login.component'
-import {LandPageComponent } from './components/land-page/land-page.component'
-import {RegisterComponent} from './components/register/register.component'
+import { LoginComponent } from './components/login/login.component'
+import { LandPageComponent } from './components/land-page/land-page.component'
+import { RegisterComponent } from './components/register/register.component'
+import { MyWeathersComponent } from './components/my-weathers/my-weathers.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: RegisterComponent
+  },
+  {
+    path: 'myweathers',
+    component: MyWeathersComponent
   }
 ];
 

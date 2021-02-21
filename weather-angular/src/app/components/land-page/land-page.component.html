@@ -1,45 +1,96 @@
 <div class="row justify-content-center mt-5 pt-5 ">
-    <div class="col-12 shadow-lg">
-        <mat-card>
-            <mat-card-title>Data</mat-card-title>
-            <mat-card-content>Informazioni sul meteo del giorno</mat-card-content>
-            <img mat-card-image>Icona
-            <mat-card-content>
-              <!-- <pre>{{mappedForecast | json}}</pre> -->
-              <mat-tab-group >
-                <mat-tab *ngFor="let dayKey of grouppedForecast" [label]="dayKey">
-                  <table mat-table [dataSource]="mappedForecast[dayKey]" class="mat-elevation-z8 w-100">
-                      
-                        <!-- Date Column -->
-                        <ng-container matColumnDef="date">
-                          <th mat-header-cell *matHeaderCellDef> Date </th>
-                          <td mat-cell *matCellDef="let element">{{element.time}}</td>
-                        </ng-container>
-                      
-                        <!-- Temperature Column -->
-                        <ng-container matColumnDef="temperature">
-                          <th mat-header-cell *matHeaderCellDef> Temperature </th>
-                          <td mat-cell *matCellDef="let element"> {{element.temp.temp}} </td>
-                        </ng-container>
-                      
-                        <!-- Wind Column -->
-                        <ng-container matColumnDef="wind">
-                          <th mat-header-cell *matHeaderCellDef> Wind </th>
-                          <td mat-cell *matCellDef="let element"> {{element.wind.speed}} </td>
-                        </ng-container>
-                      
-                        <!-- Condition Column -->
-                        <ng-container matColumnDef="condition">
-                          <th mat-header-cell *matHeaderCellDef> Condition </th>
-                          <td mat-cell *matCellDef="let element"> {{element.wea.description}} </td>
-                        </ng-container>
-                      
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
-                  </mat-tab>
-              </mat-tab-group>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div class="col-12 shadow-lg">
+    <mat-card>
+      <mat-card-title>{{mappedForecast[grouppedForecast[0]][0].time}}</mat-card-title>
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <mat-list>
+            <mat-list-item class="m-1">
+              <img src="http://openweathermap.org/img/wn/{{mappedForecast[grouppedForecast[0]][0].wea.icon}}@2x.png">
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="m-1">
+              <h1>{{mappedForecast[grouppedForecast[0]][0].temp.temp}} C°</h1>
+            </mat-list-item >
+            <mat-divider></mat-divider>
+          </mat-list>
+          <!-- <h1>pippo</h1> -->
+        </div>
+        <div class="col-6">
+          <mat-list>
+            <mat-list-item class="m-1">
+              <h1>{{city.name}}</h1>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="m-1">{{city.country}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+      </div>
+      
+      <mat-card-content>
+        <!-- <pre>{{mappedForecast | json}}</pre> -->
+        <mat-tab-group>
+          <mat-tab *ngFor="let dayKey of grouppedForecast" [label]="dayKey">
+            <table mat-table [dataSource]="mappedForecast[dayKey]" class="mat-elevation-z8 w-100">
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element">{{element.time}}</td>
+              </ng-container>
+
+              <!-- Temperature Column -->
+              <ng-container matColumnDef="average">
+                <th mat-header-cell *matHeaderCellDef> Temperature </th>
+                <td mat-cell *matCellDef="let element">{{element.temp.temp}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="minimum">
+                <th mat-header-cell *matHeaderCellDef> Minimum </th>
+                <td mat-cell *matCellDef="let element">{{element.temp.temp_min}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="maximum">
+                <th mat-header-cell *matHeaderCellDef> Maximum </th>
+                <td mat-cell *matCellDef="let element">{{element.temp.temp_max}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="pressure">
+                <th mat-header-cell *matHeaderCellDef> Pressure </th>
+                <td mat-cell *matCellDef="let element">{{element.temp.pressure}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="humidity">
+                <th mat-header-cell *matHeaderCellDef> Humidity </th>
+                <td mat-cell *matCellDef="let element">{{element.temp.humidity}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                  <img src="http://openweathermap.org/img/wn/{{element.wea.icon}}@2x.png" alt="">
+                </td>
+              </ng-container>
+
+              <!-- Wind Column -->
+              <ng-container matColumnDef="wind">
+                <th mat-header-cell *matHeaderCellDef> Wind </th>
+                <td mat-cell *matCellDef="let element"> {{element.wind.speed}} </td>
+              </ng-container>
+
+              <!-- Condition Column -->
+              <ng-container matColumnDef="condition">
+                <th mat-header-cell *matHeaderCellDef> Condition </th>
+                <td mat-cell *matCellDef="let element"> {{element.wea.description}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

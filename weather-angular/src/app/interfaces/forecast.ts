@@ -20,7 +20,7 @@
         temp: Temp;
         wea: Wea;
         wind: Wind;
-        time: string;
+        time?: string;
     }
 
     export interface Coord {
@@ -33,8 +33,8 @@
         name: string;
         coord: Coord;
         country: string;
-        population: number;
-        timezone: number;
+        population?: number;
+        timezone?: number;
         sunrise: number;
         sunset: number;
     }
@@ -44,6 +44,11 @@
         city: City;
     }
 
-export interface mappedForecast { 
+    export interface CurrentRes {
+        forecast: Forecast;
+        city: City;
+    }
+
+    export interface mappedForecast { 
     [ key:string ]:Forecast[]
- }
+    }

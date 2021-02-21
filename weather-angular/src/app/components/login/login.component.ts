@@ -24,10 +24,19 @@ ngOnInit(): void {
 formLogin = async () => {
   try{
     const res = await this.apicaller.login(this.email, this.password)
-    sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
+    sessionStorage.setItem("user", JSON.stringify(
+        { 
+          email: this.email, 
+          token: res.token,
+          city: res.city,
+          country: res.country,
+          unit: res.unit
+        }
+      )
+    )
     this.dataShareService.isUserLoggedIn.next(true);
     this.router.navigate(['/'])
-  }catch(error){
+  } catch(error) {
     alert(error.error.Error)
     console.log(error);
   }}

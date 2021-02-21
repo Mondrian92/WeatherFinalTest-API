@@ -295,7 +295,7 @@ export class RegisterComponent implements OnInit {
       sessionStorage.setItem("user", JSON.stringify({email: this.email, token: res.token}))
       this.dataShareService.isUserLoggedIn.next(true); ;
       this.router.navigate(['/'])     
-    }catch(error){
+    } catch(error) {
       alert(error.error.Error)      
     }
   }

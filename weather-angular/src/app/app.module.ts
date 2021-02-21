@@ -25,6 +25,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatCardModule } from '@angular/material/card'; 
 import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component'; 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MyWeathersComponent } from './components/my-weathers/my-weathers.component'; 
 
 
 @NgModule({
@@ -34,7 +38,8 @@ import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component
     RegisterComponent,
     NavbarComponent,
     LandPageComponent,
-    HiddenNavComponent
+    HiddenNavComponent,
+    MyWeathersComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +56,9 @@ import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component
     MatTableModule,
     MatInputModule,
     MatCardModule,
+    MatListModule,
+    MatExpansionModule,
+    MatDividerModule,
     HttpClientModule
   ],
   providers: [

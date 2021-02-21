@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ForecastRes, mappedForecast } from 'src/app/interfaces/forecast';
+import { City, ForecastRes, mappedForecast } from 'src/app/interfaces/forecast';
 import { ApiCallerService } from 'src/app/services/api-caller.service';
 import { DataShareService } from 'src/app/services/data-share.service';
+
 @Component({
   selector: 'app-land-page',
   templateUrl: './land-page.component.html',
@@ -12,7 +13,18 @@ export class LandPageComponent implements OnInit {
   longitude: number
   latitude: number
   forecast: ForecastRes | undefined 
-  displayedColumns: string[] = ["date","temperature","wind","condition"]
+  displayedColumns: string[] = [
+    "date",
+    "average",
+    "minimum", 
+    "maximum", 
+    "pressure",
+    "humidity",
+    "wind",
+    "condition",
+    "icon"
+  ]
+
   constructor(private callService: ApiCallerService, private dataShareService: DataShareService) {}
 
   ngOnInit(): void {
@@ -25,12 +37,8 @@ export class LandPageComponent implements OnInit {
         navigator.geolocation.getCurrentPosition(async (position) => {
           this.longitude = position.coords.longitude;
           this.latitude = position.coords.latitude;
-
           this.forecast = await this.callService.foreCoordAll(this.longitude, this.latitude, "metric")
-          
-          console.log(this.forecast);
         });
-        
     } else {
        console.log("No support for geolocation")
     }
@@ -46,8 +54,11 @@ export class LandPageComponent implements OnInit {
     }, {} )
   }
 
-  get grouppedForecast(): string[] { 
+  get grouppedForecast(): string[] {
     return Object.keys(this.mappedForecast)
   }
 
+  get city(): City {
+    return this.forecast?.city
+  }
 }

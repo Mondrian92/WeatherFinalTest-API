@@ -1,0 +1,37 @@
+<div class="row justify-content-center mt-5 pt-5">
+    <div class="col-6">
+        <form class="row shadow-lg p-3 mb-5">
+            <h2>Search your forecast</h2>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>City</mat-label>
+                <input type="text" matInput [ngClass]="{disabled: checkInput({{String(cityName)}})}" [(ngModel)]="cityName" name="cityName" placeholder="Inserisci email">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Zip Code</mat-label>
+                <input type="text" matInput [ngClass]="{disabled: checkInput({{String(zipCode)}})}" [(ngModel)]="zipCode" name="zipCode" placeholder="Inserisci password">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>City ID</mat-label>
+                <input type="email" matInput [ngClass]="disabled: checkInput(cityId)"  matInput [(ngModel)]="cityId" name="cityId" placeholder="Inserisci email">
+            </mat-form-field>
+
+            <mat-label>Coordinates</mat-label>
+            <mat-form-field class="example-full-width">
+                <mat-label>Longitude</mat-label>
+                <input type="number" matInput [ngClass]="{disabled: checkInput({{String(lon)}})}" [(ngModel)]="lon" name="lon" placeholder="Inserisci password">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Latitude</mat-label>
+                <input type="number" matInput [ngClass]="{disabled: checkInput({{String(lat)}})}" matInput [(ngModel)]="lat" name="lat" placeholder="Inserisci password">
+            </mat-form-field>
+
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+        </form>
+    </div>
+    <div class="col-6">
+    </div>
+</div>

@@ -13,8 +13,10 @@ export class MyWeathersComponent implements OnInit {
   searchChoice: string
   country: string
   mode: string
-  currentRes: CurrentRes  
+
+  currentRes: CurrentRes
   forecastRes: ForecastRes
+
   displayedColumns: string[] = [
     "date",
     "average",
@@ -29,17 +31,21 @@ export class MyWeathersComponent implements OnInit {
 
   countryCodes
 
+  
   constructor(private apicaller: ApiCallerService) { }
 
   ngOnInit(): void {
-    this.countryCodes = countryCodes
+    this.apicaller.isLogged();
+    this.countryCodes = countryCodes 
   }
 
   async chooseCall(): Promise<void> {
-
+    this.apicaller.isLogged()
+    this.forecastRes = undefined
+    this.currentRes = undefined
     if (this.mode === "current") {
-
       switch (this.searchChoice) {
+
         case "city":
           this.currentRes = await this.apicaller.currentCityName(
             this.value,
@@ -47,8 +53,8 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("currentRes", this.currentRes);
-          break;
+        break;
+
         case "cityid":
           this.currentRes = await this.apicaller.currentCityId(
             this.value,
@@ -56,8 +62,8 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("currentRes", this.currentRes);
-          break;
+        break;
+
         case "zipcode":
           this.currentRes = await this.apicaller.currentZipCode(
             this.value,
@@ -66,8 +72,8 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("currentRes", this.currentRes);
-          break;
+        break;
+
         case "coordinates":
           const coord = this.value.split(",")
           this.currentRes = await this.apicaller.currentCoordinates(
@@ -77,10 +83,10 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("currentRes", this.currentRes);
-          break;
+        break;
+
         default:
-          break;
+        break;   
       }
     } else {
       switch (this.searchChoice) {
@@ -91,7 +97,6 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("forecastRes", this.forecastRes);
           break;
         case "cityid":
           this.forecastRes = await this.apicaller.forecastCityId(
@@ -100,7 +105,6 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("forecastRes", this.forecastRes);
           break;
         case "zipcode":
           this.forecastRes = await this.apicaller.forecastZipCode(
@@ -110,7 +114,6 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("forecastRes", this.forecastRes);
           break;
         case "coordinates":
           const coord = this.value.split(",")
@@ -121,16 +124,20 @@ export class MyWeathersComponent implements OnInit {
               JSON.parse(sessionStorage.getItem("user")).unit :
               "metric"
           )
-          console.log("forecastRes", this.forecastRes);
           break;
         default:
           break;
       }
     }
+    
   }
 
+
+  
+//Forecast functions
   get mappedForecast(): mappedForecast {
-    if(this.mode === "forecast")
+    
+    if(this.mode === "forecast" || this.mode !== undefined)
     return this.forecastRes?.forecast.reduce((acc,value) => {
       const date = value.time.split(" ", 1)[0]
       return {

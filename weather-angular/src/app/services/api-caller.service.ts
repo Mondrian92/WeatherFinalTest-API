@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthRes } from '../interfaces/auth-res';
 import { DataShareService } from 'src/app/services/data-share.service';
-import { CurrentRes, Forecast, ForecastRes } from '../interfaces/forecast';
+import { CurrentRes, ForecastRes } from '../interfaces/forecast';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class ApiCallerService {
   private uriForecast = "http://localhost:3001/weathers/forecast";
   private uriUpdates = "http://localhost:3001/updates";
   
-  constructor(private client: HttpClient, private dataShareService: DataShareService) { }
+  constructor(private client: HttpClient, private dataShareService: DataShareService, private router: Router) { }
 
 
 
@@ -41,11 +42,16 @@ export class ApiCallerService {
       unit }).toPromise() as Promise<AuthRes>;
 
   isLogged = async (): Promise<void> => {
-    const { token } = JSON.parse(sessionStorage.getItem("user"));
-    // const { token } = (sessionStorage.getItem("user")==undefined) ? JSON.parse(sessionStorage.getItem("user")) : ""
+    const token  = (sessionStorage.getItem("user") !== null) ? JSON.parse(sessionStorage.getItem("user")).token : ""
     const headers = new HttpHeaders().set("token", token);
-    const resp = await this.client.get(this.uriAuth + "checkLogin", { headers }).toPromise() as Promise<AuthRes>
-    if((await resp).isLogged) this.dataShareService.isUserLoggedIn.next(true);
+    try{
+      const resp = await this.client.get(this.uriAuth + "checkLogin", { headers }).toPromise() as Promise<AuthRes>
+      if((await resp).isLogged) this.dataShareService.isUserLoggedIn.next(true)
+    }catch(error){
+      if(this.router.url == '/myweathers' || this.router.routerState.snapshot.url == ""){
+        this.router.navigate(['login'])
+      }
+    }
   }
   
   login = async (email: string, password: string): Promise<AuthRes> => {

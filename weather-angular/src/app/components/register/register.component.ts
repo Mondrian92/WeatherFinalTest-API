@@ -25,10 +25,6 @@ export class RegisterComponent implements OnInit {
   public alreadyExist: boolean = false
   countryCodes
   
-  
-  
-
-
   units = { metric: 'Celsius',
   imperial: 'Farenheit',
   standard: 'Kelvin'

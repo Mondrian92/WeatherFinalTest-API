@@ -37,7 +37,7 @@ formLogin = async () => {
     this.dataShareService.isUserLoggedIn.next(true);
     this.router.navigate(['/'])
   } catch(error) {
-    alert(error.error.Error)
-    console.log(error);
+    console.log(error)
+    alert(error.error.error)
   }}
 }

@@ -45,21 +45,30 @@ router.get(
     header("password").isString().trim(),
     validationHandler,
     async ({ headers: { email, password } }: Request, res: Response) => {
-        if (await client.existsAsync(email)) {
-            const {password,city,unit,country} = JSON.parse(await client.getAsync(email));
-            if (password === password) {
+        console.log("Sono qua");
+        if (await client.existsAsync(email)) { 
+            console.log("Sono qui");
+            const userInfo = JSON.parse(await client.getAsync(email));
+            console.log("PWD database"+userInfo.password)
+            console.log("PWD nostra"+password)
+            if (password === userInfo.password) {
+                console.log("son quo");
+                
                 var token = uidgen.generateSync();
                 await client.setAsync(token, email, "EX", 600);
                 res.status(200).json({
                     message: "Login eseguito",
                     token,
-                    city,
-                    country,
-                    unit,
+                    city:userInfo.city,
+                    coutry:userInfo.country,
+                    unit:userInfo.unit,
                     isLogged: true 
                 });
             }
         }
+        res.status(400).json({
+            error: "Login errato, ricontrolla",
+        })
     }
 );
 

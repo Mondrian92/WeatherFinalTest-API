@@ -12,7 +12,6 @@ export class NavbarComponent implements OnInit {
   constructor(private callService: ApiCallerService, private router: Router, private dataShareService: DataShareService) {}
 
   ngOnInit(): void {
-   
     this.dataShareService.isUserLoggedIn.subscribe(value => {
       this.logged = value;
     });

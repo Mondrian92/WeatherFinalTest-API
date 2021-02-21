@@ -44,34 +44,34 @@
     <div class="col-6">
         <div *ngIf="mode === 'current'" class="row row-cols-3 justify-content-start align-items-center shadow-lg">
             <div>
-                <h1>{{res.forecast.temp.temp}}</h1>
+                <h1>{{currentRes.forecast.temp.temp}}</h1>
             </div>
             <div>
-                <h1>{{res.forecast.wea.description}}</h1>
+                <h1>{{currentRes.forecast.wea.description}}</h1>
             </div>
             <div>
-                <img src="http://openweathermap.org/img/wn/{{res.forecast.wea.icon}}@2x.png">
+                <img src="http://openweathermap.org/img/wn/{{currentRes.forecast.wea.icon}}@2x.png">
             </div>
             <div>
                 <h2>Maximum</h2>
-                <h3>{{res.forecast.temp.temp_max}}</h3>
+                <h3>{{currentRes.forecast.temp.temp_max}}</h3>
                 <!-- {{isCurrent()}} -->
             </div>
             <div>
                 <h2>Minimum</h2>
-                <h3>{{res.forecast.temp.temp_min}}</h3>
+                <h3>{{currentRes.forecast.temp.temp_min}}</h3>
             </div>
             <div>
                 <h2>Humidity</h2>
-                <h3>{{res.forecast.temp.humidity}}</h3>
+                <h3>{{currentRes.forecast.temp.humidity}}</h3>
             </div>
             <div>
                 <h2>Pressure</h2>
-                <h3>{{res.forecast.temp.pressure}}</h3>
+                <h3>{{currentRes.forecast.temp.pressure}}</h3>
             </div>
             <div>
                 <h2>Wind speed</h2>
-                <h3>{{res.forecast.wind.speed}}</h3>
+                <h3>{{currentRes.forecast.wind.speed}}</h3>
             </div>
 
         </div>

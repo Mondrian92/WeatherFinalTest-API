@@ -93,4 +93,11 @@ router.get('/checkLogin',isLogged, async ( _ : Request, res: Response) => {
     })
 })
 
+router.get('/userInfo',isLogged, async ( _ : Request, res: Response) => {
+    const userInfo = JSON.parse(await client.getAsync(res.locals.email));
+    res.status(200).json({
+        ...userInfo
+    })
+})
+
 export { router as auth };

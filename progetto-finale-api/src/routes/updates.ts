@@ -11,8 +11,6 @@ import cors from "cors";
 const router = Router();
 const client: any = promisifyAll(createClient());
 router.use(cors())
-router.use(json());
-router.use(urlencoded({ extended: true }));
 
 router.put("/username", 
     isLogged, 
@@ -44,9 +42,9 @@ router.put("/city",
         if (
             await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
-        res.status(200).json({Message: "Update fatto"})
+        res.status(200).json({message: "Update fatto"})
     } else {
-        res.status(400).json({Message: "Bad request"})
+        res.status(400).json({error: "Bad request"})
     }
 });
 
@@ -62,9 +60,9 @@ router.put("/country",
         if (
             await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
-        res.status(200).json({Message: "Update fatto"})
+        res.status(200).json({message: "Update fatto"})
     } else {
-        res.status(400).json({Message: "Bad request"})
+        res.status(400).json({error: "Bad request"})
     }
 });
 
@@ -80,9 +78,9 @@ router.put("/unit",
         if (
             await client.setAsync( res.locals.emails, JSON.stringify( user ))
         )
-        res.status(200).json({Message: "Update fatto"})
+        res.status(200).json({message: "Update fatto"})
     } else {
-        res.status(400).json({Message: "Bad request"})
+        res.status(400).json({error: "Bad request"})  
     }
 });
 

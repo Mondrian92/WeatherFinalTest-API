@@ -49,7 +49,7 @@ router.get(
             const {password,city,unit,country} = JSON.parse(await client.getAsync(email));
             if (password === password) {
                 var token = uidgen.generateSync();
-                await client.setAsync(token, email, "EX", 120);
+                await client.setAsync(token, email, "EX", 600);
                 res.status(200).json({
                     message: "Login eseguito",
                     token,

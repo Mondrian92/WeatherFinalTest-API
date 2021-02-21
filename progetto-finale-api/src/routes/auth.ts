@@ -12,18 +12,12 @@ import UIDGenerator from "uid-generator";
 const router = Router();
 
 router.use(cors());
-
-router.use(function(_, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-  
+router.use(json());
+router.use(urlencoded({ extended: true }));
 const client: any = promisifyAll(createClient());
 const uidgen = new UIDGenerator();
 
-router.use(json());
-router.use(urlencoded({ extended: true }));
+
 
 router.post(
     "/register",
@@ -52,13 +46,16 @@ router.get(
     validationHandler,
     async ({ headers: { email, password } }: Request, res: Response) => {
         if (await client.existsAsync(email)) {
-            const userInfo = JSON.parse(await client.getAsync(email));
-            if (password === userInfo.password) {
+            const {password,city,unit,country} = JSON.parse(await client.getAsync(email));
+            if (password === password) {
                 var token = uidgen.generateSync();
                 await client.setAsync(token, email, "EX", 120);
                 res.status(200).json({
                     message: "Login eseguito",
                     token,
+                    city,
+                    country,
+                    unit,
                     isLogged: true 
                 });
             }

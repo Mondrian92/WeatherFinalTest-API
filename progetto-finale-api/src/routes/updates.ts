@@ -6,10 +6,11 @@ import { promisifyAll } from "bluebird";
 import { json, urlencoded } from "body-parser";
 import { isLogged } from '../isLogged'
 import {User} from '../user'
+import cors from "cors";
 
 const router = Router();
 const client: any = promisifyAll(createClient());
-
+router.use(cors())
 router.use(json());
 router.use(urlencoded({ extended: true }));
 

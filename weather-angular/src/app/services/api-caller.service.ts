@@ -41,8 +41,8 @@ export class ApiCallerService {
       unit }).toPromise() as Promise<AuthRes>;
 
   isLogged = async (): Promise<void> => {
-    //const { token } = JSON.parse(sessionStorage.getItem("user"))
-    const { token } = (sessionStorage.getItem("user")==undefined) ? JSON.parse(sessionStorage.getItem("user")) : ""
+    const { token } = JSON.parse(sessionStorage.getItem("user"));
+    // const { token } = (sessionStorage.getItem("user")==undefined) ? JSON.parse(sessionStorage.getItem("user")) : ""
     const headers = new HttpHeaders().set("token", token);
     const resp = await this.client.get(this.uriAuth + "checkLogin", { headers }).toPromise() as Promise<AuthRes>
     if((await resp).isLogged) this.dataShareService.isUserLoggedIn.next(true);
@@ -65,23 +65,18 @@ export class ApiCallerService {
   currentCityName = async (cityName: string, unit: string) => {
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("unit", unit).set("token", token );
-    const params = new HttpParams().set("city", cityName);
-    return await this.client.get(this.uriCurrent + "/cities/:cityName", { headers, params }).toPromise();
+    return await this.client.get(this.uriCurrent + `/cities/${cityName}`, { headers }).toPromise();
   }
 
   currentCityId = async (cityId: string, unit: string) => {
     const headers = new HttpHeaders().set("unit", unit);
-    const params = new HttpParams().set("cityId", cityId);
-    return await this.client.get(this.uriCurrent + "/id/:cityId", { headers, params }).toPromise();
+    return await this.client.get(this.uriCurrent + `/id/${cityId}`, { headers,  }).toPromise();
   }
 
   currentZipCode = async (zipCode: string, countryCode: string, unit: string) => {
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("unit", unit).set("token", token );
-    const params = new HttpParams();
-    params.append("zipCode", zipCode);
-    params.append("countryCode", countryCode)
-    return await this.client.get(this.uriCurrent + "/coutries/:countryCode/zipcodes/:zipCode", { headers, params }).toPromise();
+    return await this.client.get(this.uriCurrent + `/coutries/${countryCode}/zipcodes/${zipCode}`, { headers }).toPromise();
   }
 
   currentCoordinates = async (long: string, lat: string, unit: string) => {
@@ -95,14 +90,14 @@ export class ApiCallerService {
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("unit", unit).set("token", token );
     const params = new HttpParams().set("city", cityName);
-    return await this.client.get(this.uriForecast + "/cities/:cityName", { headers, params }).toPromise();
+    return await this.client.get(this.uriForecast + `/cities/${cityName}`, { headers, params }).toPromise();
   }
 
   forecastCityId = async (cityId: string, unit: string) => {
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("unit", unit).set("token", token );
     const params = new HttpParams().set("cityId", cityId);
-    return await this.client.get(this.uriForecast + "/id/:cityId", { headers, params }).toPromise();
+    return await this.client.get(this.uriForecast + `/id/${cityId}`, { headers, params }).toPromise();
   }
 
   forecastZipCode = async (zipCode: string, countryCode: string, unit: string) => {
@@ -111,7 +106,7 @@ export class ApiCallerService {
     const params = new HttpParams();
     params.append("zipCode", zipCode);
     params.append("countryCode", countryCode)
-    return await this.client.get(this.uriForecast + "/coutries/:countryCode/zipcodes/:zipCode", { headers, params }).toPromise();
+    return await this.client.get(this.uriForecast + `/coutries/${countryCode}/zipcodes/${zipCode}`, { headers, params }).toPromise();
   }
 
   forecastCoordinates = async (long: string, lat: string, unit: string) => {

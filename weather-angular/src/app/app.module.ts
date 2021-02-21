@@ -29,6 +29,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MyWeathersComponent } from './components/my-weathers/my-weathers.component'; 
+import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { MyWeathersComponent } from './components/my-weathers/my-weathers.compon
     MatCardModule,
     MatListModule,
     MatExpansionModule,
+    MatButtonModule,
     MatDividerModule,
+    MatRadioModule,
     HttpClientModule
   ],
   providers: [

@@ -3,33 +3,38 @@
         <form class="row shadow-lg p-3 mb-5">
             <h2>Search your forecast</h2>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>City</mat-label>
-                <input type="text" matInput [ngClass]="{disabled: checkInput({{String(cityName)}})}" [(ngModel)]="cityName" name="cityName" placeholder="Inserisci email">
+            <section>
+                <mat-radio-group>
+                    <mat-radio-button class="mx-1" value="city" (click)="searchChoice='city'">City</mat-radio-button>
+                    <mat-radio-button class="mx-1" value="cityid" (click)="searchChoice='cityid'">City ID</mat-radio-button>
+                    <mat-radio-button class="mx-1" value="zipcode" (click)="searchChoice='zipcode'">Zip Code</mat-radio-button>
+                    <mat-radio-button class="mx-1" value="coordinates" (click)="searchChoice='coordinates'">Coordinates</mat-radio-button>
+                </mat-radio-group>
+            </section>
+
+            <section class="mt-3">
+                <mat-radio-group>
+                    <mat-radio-button class="mx-1" value="current" (click)="mode='current'">Current</mat-radio-button>
+                    <mat-radio-button class="mx-1" value="forecast" (click)="mode='forecast'">Five days/three hour spaced</mat-radio-button>
+                </mat-radio-group>
+            </section>
+
+            <mat-form-field class="mt-3" *ngIf='searchChoice === "zipcode"' appearance="">
+                <mat-label>Choose a country</mat-label>
+                <mat-select [(ngModel)]="country" name="country">
+                    <mat-option *ngFor="let country of countryCodes | keyvalue" [value]="country.value">
+                        {{country.key}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
-                <mat-label>Zip Code</mat-label>
-                <input type="text" matInput [ngClass]="{disabled: checkInput({{String(zipCode)}})}" [(ngModel)]="zipCode" name="zipCode" placeholder="Inserisci password">
+                <mat-label> </mat-label>
+                <input type="text" matInput [(ngModel)]="value" name="value"
+                    placeholder="Inser a City name, a City ID, a Zip Code or two coordinates with a comma between them">
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>City ID</mat-label>
-                <input type="email" matInput [ngClass]="disabled: checkInput(cityId)"  matInput [(ngModel)]="cityId" name="cityId" placeholder="Inserisci email">
-            </mat-form-field>
-
-            <mat-label>Coordinates</mat-label>
-            <mat-form-field class="example-full-width">
-                <mat-label>Longitude</mat-label>
-                <input type="number" matInput [ngClass]="{disabled: checkInput({{String(lon)}})}" [(ngModel)]="lon" name="lon" placeholder="Inserisci password">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Latitude</mat-label>
-                <input type="number" matInput [ngClass]="{disabled: checkInput({{String(lat)}})}" matInput [(ngModel)]="lat" name="lat" placeholder="Inserisci password">
-            </mat-form-field>
-
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+            <input (click)="chooseCall()" class="btn btn-lg btn-primary btn-block" type="submit" value="Search">
         </form>
     </div>
     <div class="col-6">

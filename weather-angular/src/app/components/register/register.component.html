@@ -22,7 +22,7 @@
         <h1 *ngIf="alreadyExist">Email already in use</h1>
         <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Inserisci email">
       </mat-form-field>
-      
+
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Password</mat-label>
         <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Inserisci password">
@@ -30,26 +30,26 @@
 
       <mat-form-field class="col-6 example-full-width">
         <mat-label>City</mat-label>
-        <input type="text"matInput [(ngModel)]="city" name="city" placeholder="Inserisci città">
+        <input type="text" matInput [(ngModel)]="city" name="city" placeholder="Inserisci città">
       </mat-form-field>
 
-        <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill">
         <mat-label>Choose a country</mat-label>
         <mat-select [(ngModel)]="country" name="country">
-            <mat-option *ngFor="let country of countryCodes | keyvalue" [value]="country.value">
+          <mat-option *ngFor="let country of countryCodes | keyvalue" [value]="country.value">
             {{country.key}}
-            </mat-option>
+          </mat-option>
         </mat-select>
-        </mat-form-field>
-        
-        <mat-form-field appearance="fill">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Choose a unit</mat-label>
         <mat-select [(ngModel)]="unit" name="unit">
           <mat-option *ngFor="let unit of units | keyvalue" [value]="unit.key">
-          {{unit.value}}
+            {{unit.value}}
           </mat-option>
         </mat-select>
-        </mat-form-field>
+      </mat-form-field>
 
       <input (click)="formRegister()" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
     </form>

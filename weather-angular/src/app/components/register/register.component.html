@@ -1,56 +1,106 @@
 <div class="mt-5 pt-5 row justify-content-center">
   <div class="col-6">
-    <form class="row shadow-lg p-3 mb-5">
+    <form [formGroup]="myForm" class="row shadow-lg p-3 mb-5">
       <h2>Please register</h2>
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Name</mat-label>
-        <input type="text" matInput [(ngModel)]="name" name="name" placeholder="Inserisci nome">
+        <input type="text" matInput [(ngModel)]="name" name="name" formControlName="name" placeholder="Inserisci nome">
       </mat-form-field>
-
+      <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].dirty || myForm.controls['name'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+      </div>
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Surname</mat-label>
-        <input type="text" matInput [(ngModel)]="surname" name="surname" placeholder="Inserisci cognome">
+        <input type="text" matInput [(ngModel)]="surname" name="surname" formControlName="surname"
+          placeholder="Inserisci cognome">
       </mat-form-field>
-
+      <div
+        *ngIf="myForm.controls['surname'].invalid && (myForm.controls['surname'].dirty || myForm.controls['surname'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['surname'].errors.required">
+          Surname is required.
+        </div>
+      </div>
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Username</mat-label>
-        <input type="text" matInput [(ngModel)]="username" name="username" placeholder="Ex. Pippo12">
+        <input type="text" matInput [(ngModel)]="username" name="username" formControlName="username"
+          placeholder="Ex. Pippo12">
       </mat-form-field>
-
+      <div
+        *ngIf="myForm.controls['username'].invalid && (myForm.controls['username'].dirty || myForm.controls['username'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['username'].errors.required">
+          Username is required.
+        </div>
+      </div>
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Email</mat-label>
         <h1 *ngIf="alreadyExist">Email already in use</h1>
-        <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Inserisci email">
+        <input type="email" matInput [(ngModel)]="email" name="email" formControlName="email"
+          placeholder="Inserisci email">
       </mat-form-field>
-
+      <div
+        *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched || myForm.controls['email'].errors.pattern) "
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['email'].errors.required">
+          Email is required.
+        </div>
+      </div>
       <mat-form-field class="col-6 example-full-width">
         <mat-label>Password</mat-label>
-        <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Inserisci password">
+        <input type="password" matInput [(ngModel)]="password" name="password" formControlName="password"
+          placeholder="Inserisci password">
       </mat-form-field>
+      <div
+        *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['password'].errors.required">
+          Password is required.
+        </div>
+      </div>
 
       <mat-form-field class="col-6 example-full-width">
         <mat-label>City</mat-label>
-        <input type="text" matInput [(ngModel)]="city" name="city" placeholder="Inserisci città">
+        <input type="text" matInput [(ngModel)]="city" name="city" formControlName="city" placeholder="Inserisci città">
       </mat-form-field>
-
+      <div *ngIf="myForm.controls['city'].invalid && (myForm.controls['city'].dirty || myForm.controls['city'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['city'].errors.required">
+          City is required.
+        </div>
+      </div>
       <mat-form-field appearance="fill">
         <mat-label>Choose a country</mat-label>
-        <mat-select [(ngModel)]="country" name="country">
+        <mat-select [(ngModel)]="country" name="country" formControlName="country">
           <mat-option *ngFor="let country of countryCodes | keyvalue" [value]="country.value">
             {{country.key}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
+      <div
+        *ngIf="myForm.controls['country'].invalid && (myForm.controls['country'].dirty || myForm.controls['country'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['country'].errors.required">
+          Countryis required.
+        </div>
+      </div>
       <mat-form-field appearance="fill">
         <mat-label>Choose a unit</mat-label>
-        <mat-select [(ngModel)]="unit" name="unit">
+        <mat-select [(ngModel)]="unit" name="unit" formControlName="unit">
           <mat-option *ngFor="let unit of units | keyvalue" [value]="unit.key">
             {{unit.value}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
+      <div *ngIf="myForm.controls['unit'].invalid && (myForm.controls['unit'].dirty || myForm.controls['unit'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="myForm.controls['unit'].errors.required">
+          Unit is required.
+        </div>
+      </div>
       <input (click)="formRegister()" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
     </form>
   </div>

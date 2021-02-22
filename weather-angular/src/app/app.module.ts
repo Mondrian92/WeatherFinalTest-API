@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Our componenets
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandPageComponent } from './components/land-page/land-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { ApiCallerService } from './services/api-caller.service';
 import { DataShareService } from './services/data-share.service';
+import { UserPageComponent } from './components/user-page/user-page.component';
+import { MyWeathersComponent } from './components/my-weathers/my-weathers.component'; 
 
 //Material
 import { MatFormFieldModule } from '@angular/material/form-field'; 
@@ -28,9 +32,10 @@ import { HiddenNavComponent } from './components/hidden-nav/hidden-nav.component
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MyWeathersComponent } from './components/my-weathers/my-weathers.component'; 
-import {MatButtonModule} from '@angular/material/button';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 
 
 @NgModule({
@@ -41,7 +46,8 @@ import {MatRadioModule} from '@angular/material/radio';
     NavbarComponent,
     LandPageComponent,
     HiddenNavComponent,
-    MyWeathersComponent
+    MyWeathersComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +69,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatButtonModule,
     MatDividerModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiCallerService,

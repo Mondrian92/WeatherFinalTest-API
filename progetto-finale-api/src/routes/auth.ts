@@ -45,15 +45,9 @@ router.get(
     header("password").isString().trim(),
     validationHandler,
     async ({ headers: { email, password } }: Request, res: Response) => {
-        console.log("Sono qua");
         if (await client.existsAsync(email)) { 
-            console.log("Sono qui");
             const userInfo = JSON.parse(await client.getAsync(email));
-            console.log("PWD database"+userInfo.password)
-            console.log("PWD nostra"+password)
             if (password === userInfo.password) {
-                console.log("son quo");
-                
                 var token = uidgen.generateSync();
                 await client.setAsync(token, email, "EX", 600);
                 res.status(200).json({
@@ -94,10 +88,8 @@ router.get('/checkLogin',isLogged, async ( _ : Request, res: Response) => {
 })
 
 router.get('/userInfo',isLogged, async ( _ : Request, res: Response) => {
-    const userInfo = JSON.parse(await client.getAsync(res.locals.email));
-    res.status(200).json({
-        ...userInfo
-    })
+    const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+    res.status(200).json({...userInfo})
 })
 
 export { router as auth };

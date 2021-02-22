@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component'
 import { LandPageComponent } from './components/land-page/land-page.component'
 import { RegisterComponent } from './components/register/register.component'
 import { MyWeathersComponent } from './components/my-weathers/my-weathers.component';
+import {UserPageComponent} from './components/user-page/user-page.component'
+
 
 const routes: Routes = [
   {
@@ -21,6 +23,10 @@ const routes: Routes = [
   {
     path: 'myweathers',
     component: MyWeathersComponent
+  },
+  {
+    path: 'userPage',
+    component: UserPageComponent
   }
 ];
 

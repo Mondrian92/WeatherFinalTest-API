@@ -3,7 +3,6 @@ import { body } from "express-validator";
 import { validationHandler } from "../validation";
 import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
-import { json, urlencoded } from "body-parser";
 import { isLogged } from '../isLogged'
 import {User} from '../user'
 import cors from "cors";

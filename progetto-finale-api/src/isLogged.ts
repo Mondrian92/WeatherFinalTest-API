@@ -4,6 +4,7 @@ import { promisifyAll } from "bluebird";
 const client: any = promisifyAll(createClient());
 
 const isLogged = async ({ headers: { token } }: Request, res: Response, next: NextFunction) => {
+    try{
     const email = await client.getAsync(token);
     res.locals.emails = email;
     if(email) next()
@@ -11,6 +12,10 @@ const isLogged = async ({ headers: { token } }: Request, res: Response, next: Ne
         message: "Utente non autorizzato",
         isLogged: false 
     })
+    }catch(error){
+        console.log(token)
+        console.log(error)
+    }
 }
 
 export { isLogged }

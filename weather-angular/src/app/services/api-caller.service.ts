@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthRes } from '../interfaces/auth-res';
+import { User } from '../interfaces/User';
 import { DataShareService } from 'src/app/services/data-share.service';
 import { CurrentRes, ForecastRes } from '../interfaces/forecast';
 import { Router } from '@angular/router';
@@ -65,6 +66,11 @@ export class ApiCallerService {
     await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
   }
 
+  getUserInfo = async (): Promise<User> =>{
+    const { token }= JSON.parse(sessionStorage.getItem("user"));
+    const headers = new HttpHeaders().set("token", token);
+    return await this.client.get(this.uriAuth + "userInfo", {headers}).toPromise() as Promise<User>;
+  }
   getCountriesList = async (): Promise<JSON> => await this.client.get(this.uriWeathers + "countries/list").toPromise() as Promise<JSON>
 
   //CURRENT  
@@ -124,19 +130,30 @@ export class ApiCallerService {
 
   //UPDATES
   updateUsername = async (username: string) => {
-    await this.client.put(this.uriUpdates + "/username", { username }).toPromise();
+    const body = username
+    const { token } = JSON.parse(sessionStorage.getItem("user"))
+    const headers = new HttpHeaders().set("token", token );
+    await this.client.put(this.uriUpdates + "/username", {headers, body} ).toPromise();
   }
 
   updateCity = async (city: string) => {
-    await this.client.put(this.uriUpdates + "/city", { city }).toPromise();
+    const { token } = JSON.parse(sessionStorage.getItem("user"))
+    const headers = new HttpHeaders().set("token", token );
+    await this.client.put(this.uriUpdates + "/city" , {body:city} ).toPromise
   }
 
   updateCountry = async (country: string) => {
-    await this.client.put(this.uriUpdates + "/country", { country }).toPromise();
+    const body = country
+    const { token } = JSON.parse(sessionStorage.getItem("user"))
+    const headers = new HttpHeaders().set("token", token );
+    await this.client.put(this.uriUpdates + "/country", {headers, body}).toPromise();
   }
 
   updateUnit = async (unit: string) => {
-    await this.client.put(this.uriUpdates + "/unit", { unit }).toPromise();
+    const body = unit
+    const { token } = JSON.parse(sessionStorage.getItem("user"))
+    const headers = new HttpHeaders().set("token", token );
+    await this.client.put(this.uriUpdates + "/unit", {headers, unit}).toPromise();
   }
 
 

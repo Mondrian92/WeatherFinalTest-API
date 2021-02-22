@@ -9,7 +9,8 @@
                     </mat-radio-button>
                     <mat-radio-button class="mx-1" value="zipcode" (click)="searchChoice = 'zipcode'">Zip Code
                     </mat-radio-button>
-                    <mat-radio-button class="mx-1" value="coordinates" (click)="searchChoice = 'coordinates'">Coordinates
+                    <mat-radio-button class="mx-1" value="coordinates" (click)="searchChoice = 'coordinates'">
+                        Coordinates
                     </mat-radio-button>
                 </mat-radio-group>
             </section>
@@ -39,41 +40,42 @@
     </div>
 
     <div class="col-6">
-    <!-- IF CURRENT -->
-    <div class="px-2">
-        <div *ngIf="currentRes !== undefined" class="row row-cols-3 justify-content-start align-items-center shadow-lg">
-            <div>
-                <h1>{{currentRes.forecast.temp.temp}}</h1>
+        <!-- IF CURRENT -->
+        <div class="px-2">
+            <div *ngIf="currentRes !== undefined"
+                class="row row-cols-3 justify-content-start align-items-center shadow-lg">
+                <div>
+                    <h1>{{currentRes.forecast.temp.temp}}</h1>
+                </div>
+                <div>
+                    <h1>{{currentRes.forecast.wea.description}}</h1>
+                </div>
+                <div>
+                    <img src="http://openweathermap.org/img/wn/{{currentRes.forecast.wea.icon}}@2x.png">
+                </div>
+                <div>
+                    <h2>Maximum</h2>
+                    <h3>{{currentRes.forecast.temp.temp_max}}</h3>
+                    <!-- {{isCurrent()}} -->
+                </div>
+                <div>
+                    <h2>Minimum</h2>
+                    <h3>{{currentRes.forecast.temp.temp_min}}</h3>
+                </div>
+                <div>
+                    <h2>Humidity</h2>
+                    <h3>{{currentRes.forecast.temp.humidity}}</h3>
+                </div>
+                <div>
+                    <h2>Pressure</h2>
+                    <h3>{{currentRes.forecast.temp.pressure}}</h3>
+                </div>
+                <div>
+                    <h2>Wind speed</h2>
+                    <h3>{{currentRes.forecast.wind.speed}}</h3>
+                </div>
             </div>
-            <div>
-                <h1>{{currentRes.forecast.wea.description}}</h1>
-            </div>
-            <div>
-                <img src="http://openweathermap.org/img/wn/{{currentRes.forecast.wea.icon}}@2x.png">
-            </div>
-            <div>
-                <h2>Maximum</h2>
-                <h3>{{currentRes.forecast.temp.temp_max}}</h3>
-                <!-- {{isCurrent()}} -->
-            </div>
-            <div>
-                <h2>Minimum</h2>
-                <h3>{{currentRes.forecast.temp.temp_min}}</h3>
-            </div>
-            <div>
-                <h2>Humidity</h2>
-                <h3>{{currentRes.forecast.temp.humidity}}</h3>
-            </div>
-            <div>
-                <h2>Pressure</h2>
-                <h3>{{currentRes.forecast.temp.pressure}}</h3>
-            </div>
-            <div>
-                <h2>Wind speed</h2>
-                <h3>{{currentRes.forecast.wind.speed}}</h3>
-            </div>
-        </div> 
-    </div>
+        </div>
         <!-- IF FORECAST -->
         <div *ngIf="forecastRes !== undefined">
             <mat-card class="shadow-lg">
@@ -91,7 +93,6 @@
                             </mat-list-item>
                             <mat-divider></mat-divider>
                         </mat-list>
-                        <!-- <h1>pippo</h1> -->
                     </div>
                     <div class="col-6">
                         <mat-list>
@@ -106,45 +107,44 @@
                 </div>
 
                 <mat-card-content>
-                    <!-- <pre>{{mappedForecast | json}}</pre> -->
                     <mat-tab-group>
                         <mat-tab *ngFor="let dayKey of grouppedForecast" [label]="dayKey">
                             <table mat-table [dataSource]="mappedForecast[dayKey]" class="mat-elevation-z8 w-100">
 
                                 <!-- Date Column -->
                                 <ng-container matColumnDef="date">
-                                    <th mat-header-cell *matHeaderCellDef> Date </th>
-                                    <td mat-cell *matCellDef="let element">{{element.time}}</td>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Date </th>
+                                    <td class="px-2" mat-cell *matCellDef="let element">{{element.time| date:'hh:mm'}}</td>
                                 </ng-container>
 
                                 <!-- Temperature Column -->
                                 <ng-container matColumnDef="average">
-                                    <th mat-header-cell *matHeaderCellDef> Temperature </th>
-                                    <td mat-cell *matCellDef="let element">{{element.temp.temp}}</td>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Temperature </th>
+                                    <td class="px-3" mat-cell *matCellDef="let element">{{element.temp.temp}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="minimum">
-                                    <th mat-header-cell *matHeaderCellDef> Minimum </th>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Minimum </th>
                                     <td mat-cell *matCellDef="let element">{{element.temp.temp_min}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="maximum">
-                                    <th mat-header-cell *matHeaderCellDef> Maximum </th>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Maximum </th>
                                     <td mat-cell *matCellDef="let element">{{element.temp.temp_max}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="pressure">
-                                    <th mat-header-cell *matHeaderCellDef> Pressure </th>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Pressure </th>
                                     <td mat-cell *matCellDef="let element">{{element.temp.pressure}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="humidity">
-                                    <th mat-header-cell *matHeaderCellDef> Humidity </th>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef> Humidity </th>
                                     <td mat-cell *matCellDef="let element">{{element.temp.humidity}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="icon">
-                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <th class="px-2" mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element">
                                         <img src="http://openweathermap.org/img/wn/{{element.wea.icon}}@2x.png" alt="">
                                     </td>
@@ -169,6 +169,6 @@
                     </mat-tab-group>
                 </mat-card-content>
             </mat-card>
-            </div>
         </div>
+    </div>
 </div>

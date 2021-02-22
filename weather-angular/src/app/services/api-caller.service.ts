@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthRes } from '../interfaces/auth-res';
-import { User } from '../interfaces/User';
+import { User } from '../interfaces/user';
 import { DataShareService } from 'src/app/services/data-share.service';
 import { CurrentRes, ForecastRes } from '../interfaces/forecast';
 import { Router } from '@angular/router';
@@ -139,7 +139,7 @@ export class ApiCallerService {
   updateCity = async (city: string) => {
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("token", token );
-    await this.client.put(this.uriUpdates + "/city" , {body:city} ).toPromise
+    await this.client.put(this.uriUpdates + "/city" , city , { headers } ).toPromise
   }
 
   updateCountry = async (country: string) => {
@@ -150,7 +150,6 @@ export class ApiCallerService {
   }
 
   updateUnit = async (unit: string) => {
-    const body = unit
     const { token } = JSON.parse(sessionStorage.getItem("user"))
     const headers = new HttpHeaders().set("token", token );
     await this.client.put(this.uriUpdates + "/unit", {headers, unit}).toPromise();

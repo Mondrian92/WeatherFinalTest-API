@@ -68,7 +68,7 @@ router.get(
 
 router.delete(
     "/logout",
-    isLogged,
+    //isLogged,
     header("token").isString(),
     validationHandler,
     async ({ headers: { token } }: Request, res: Response) => {

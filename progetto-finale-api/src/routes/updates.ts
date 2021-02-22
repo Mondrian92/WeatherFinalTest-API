@@ -4,12 +4,16 @@ import { validationHandler } from "../validation";
 import { createClient } from "redis";
 import { promisifyAll } from "bluebird";
 import { isLogged } from '../isLogged'
-import {User} from '../user'
+import { User } from '../user'
 import cors from "cors";
+import bodyParser from "body-parser"
+
 
 const router = Router();
 const client: any = promisifyAll(createClient());
 router.use(cors())
+router.use(bodyParser.urlencoded())
+router.use(bodyParser.json())
 
 router.put("/username", 
     isLogged, 
@@ -33,9 +37,9 @@ router.put("/city",
     isLogged, 
     body('city').isString().trim(), 
     validationHandler, 
-    async ({ body: { city } }: Request, res: Response) => {
-    if (await client.existsAsync(res.locals.emails)) {
-        const userInfo = JSON.parse(await client.getAsync(res.locals.emails));
+    async ({ body: {city} }: Request, res: Response) => {
+    if (await client.existsAsync(res.locals.emails)) {  
+        const userInfo = JSON.parse(await client.getAsync(res.locals.emails));        
         userInfo.city = city
         const user: User = {...userInfo}
         if (

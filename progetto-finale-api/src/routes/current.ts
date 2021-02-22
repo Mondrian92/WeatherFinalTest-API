@@ -19,14 +19,20 @@ router.get(
   async ({ params: { cityName }, headers: { unit } }: Request, res: Response) => {
     try {
       weatherApi.setUnits(<Unit>unit);
-      const {weather,main,wind,name,sys,coord,id} = await weatherApi.getCurrentWeatherByCityName({ cityName })
+      const {weather, 
+        main: {temp, temp_min, temp_max, pressure, humidity}, 
+        wind, 
+        name, 
+        sys, 
+        coord, 
+        id} = await weatherApi.getCurrentWeatherByCityName({ cityName })
       var forecast = {
         temp :{
-          temp:main.temp,
-          temp_min:main.temp_min,
-          temp_max:main.temp_max,
-          pressure:main.pressure,
-          humidity:main.humidity
+          temp,
+          temp_min,
+          temp_max,
+          pressure,
+          humidity
         },
         wea:{
           main:weather[0].main,

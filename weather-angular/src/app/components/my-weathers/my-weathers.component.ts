@@ -76,6 +76,8 @@ export class MyWeathersComponent implements OnInit {
 
         case "coordinates":
           const coord = this.value.split(",")
+          console.log(coord[0]);
+          console.log(coord[1]);
           this.currentRes = await this.apicaller.currentCoordinates(
             coord[0],
             coord[1],

@@ -66,12 +66,12 @@ export class ApiCallerService {
     await this.client.delete(this.uriAuth + "logout", { headers }).toPromise();
   }
 
-  getUserInfo = async (): Promise<User> =>{
+  getUserInfo =  (): Promise<User> =>{
     const { token }= JSON.parse(sessionStorage.getItem("user"));
     const headers = new HttpHeaders().set("token", token);
-    return await this.client.get(this.uriAuth + "userInfo", {headers}).toPromise() as Promise<User>;
+    return  this.client.get(this.uriAuth + "userInfo", {headers}).toPromise() as Promise<User>;
   }
-  getCountriesList = async (): Promise<JSON> => await this.client.get(this.uriWeathers + "countries/list").toPromise() as Promise<JSON>
+  getCountriesList =  (): Promise<JSON> =>  this.client.get(this.uriWeathers + "countries/list").toPromise() as Promise<JSON>
 
   //CURRENT  
   currentCityName = async (cityName: string, unit: string): Promise<CurrentRes> => {
